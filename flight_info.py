@@ -9,7 +9,7 @@ class FlightInfo:
         self.departure = data['local_departure'].split("T")[0]
         self.leave_destination_date = data["route"][-1]['local_departure'].split("T")[0]
         self.arrival = data["route"][-1]['local_arrival'].split("T")[0]
-        self.nights_at_destination = data['nightsInDest']
+        self.nights_at_destination = int(data['nightsInDest']) + 1
         self.price = data['price']
 
     def deal_info_to_message(self):
@@ -19,7 +19,8 @@ class FlightInfo:
                         f"and returning from {self.city_to_code} " \
                         f"on {self.leave_destination_date}.\n" \
                         f"That's {self.nights_at_destination} nights in {self.city_to}, could be fun!" \
-                        f"\n\nHere is a link with the flight details all setup to see this deal on Kayak.com." \
+                        f"\n\nHere are two links with the flight details all setup (Kayak.com and Kiwi.com)." \
                         f"\nhttps://www.kayak.com/flights/{self.city_from_code}-{self.city_to_code}/{self.departure}/{self.leave_destination_date}?sort=price_a" \
+                        f"\n\nhttps://www.kiwi.com/en/search/results/{self.city_from_code}/{self.city_to_code}/{self.departure}/{self.leave_destination_date}?sortBy=price" \
                         f"\n----------------------------------------------------\n\n"
         return email_message
